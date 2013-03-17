@@ -30,7 +30,7 @@ include $(CONFIG)
 endif
 
 SEP = $(strip \)
-SRCDIR =.$(SEP)
+SRCDIR ?=.$(SEP)
 
 # platform configuration
 

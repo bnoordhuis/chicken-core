@@ -29,7 +29,7 @@ ifneq ($(CONFIG),)
 include $(CONFIG)
 endif
 
-SRCDIR = ./
+SRCDIR ?= ./
 
 # platform configuration
 

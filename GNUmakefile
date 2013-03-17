@@ -42,7 +42,7 @@ $(info For more information, consult the README file.)
 $(error No PLATFORM given.)
 endif
 
-SRCDIR = .
+SRCDIR ?= .
 
 STANDARD_TARGETS \
 	= all clean distclean spotless install uninstall confclean check \

@@ -554,13 +554,17 @@ stub.c: $(SRCDIR)stub.scm $(SRCDIR)common-declarations.scm
 build-version.c: $(SRCDIR)build-version.scm buildbranch buildid \
 	  $(SRCDIR)buildversion buildtag.h
 	$(bootstrap-lib)
+setup-%.import.c: setup-%.import.scm
+	$$(CHICKEN) $$< $$(CHICKEN_IMPORT_LIBRARY_OPTIONS) -output-file $$@
 
 define declare-bootstrap-import-lib
 $(1).import.c: $$(SRCDIR)$(1).import.scm
 	$$(CHICKEN) $$< $$(CHICKEN_IMPORT_LIBRARY_OPTIONS) -output-file $$@
 endef
 
-$(foreach obj, $(IMPORT_LIBRARIES),\
+# setup-api and setup-download are dynamically generated and live in the build
+# directory, not the source directory. Don't generate rules for them.
+$(foreach obj, $(filter-out setup-%,$(IMPORT_LIBRARIES)),\
           $(eval $(call declare-bootstrap-import-lib,$(obj))))
 
 # Bootstrap compiler objects
